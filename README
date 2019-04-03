@@ -1,0 +1,49 @@
+Topic
+This project is called “Colorizing Grey-scale Photos using Neural Network”. The neural network model used in this project is built with Keras on TensorFlow, a simple GUI that can be run on Linux is provided to demonstrate the DNN. User will open a grey scale image (any size and even a colored image to simply test the colorizing performance), by clicking the button “Colorize”, the GUI will use the trained model to colorize the input image.
+
+Dataset
+There were multiple trials to decide what will be the best dataset, to be able to train the model correctly, but also be time-efficient since this is a class project that has certain deadlines. The original dataset contains 9,294 image, obtained from “unsplash.com”, cropped and converted into resolution of 256x256. However, it is realized that by using a dataset with such size, each epoch consumes unacceptably long time, and if the total epoch amount is small, the model does not perform well as expected. Furthermore, the original dataset contains images with multiple types of objects, therefore the model appears to be underfit, even when total epoch amount is very large. As a result, it was decided that, two categories of images (portraits and landscape) were extracted from the original dataset, and the total number of images are limited into 100 (explained later in hyperparameters sections), therefore the model can be better trained to achieve expected functions, within reasonable time.
+Size: 100, Resolution: 256x256
+
+DNNModel
+There are two versions of the architectures that were tested, a simple one constructed only with Keras, and another more complicated one using a pre- trained classifier as a fusion layer (mentioned in Project Assignment 2), to help identify the objects inside the images, and learn to colorize them. However, the final decision was to use the simple DNN.
+The reason of not using the complicated DNN is because, it takes longer time to train, but the result with same parameters are worse than the simple DNN. Also, when implementing them into the GUI, the complicated DNN requires downloading a pre-trained classifier model (InceptionResnet-v2) of size 225 MB. Furthermore, when processing the image, the model takes a lot of system memory when running (crushed on 4 GB ram, worked on 8 GB). The processing time is also much longer. The possible reason that causing this result is that, with limited computing power and time, also a limited dataset with only two categories, the complicated DNN cannot outperform the simple DNN with its advantages. However, it is expected that, if the training dataset becomes more diverse and larger, the complicated DNN will begin outperform the simple one.
+
+Architecture
+This model used 1 input layer as entry, and then 12 of 2D convolution layers, there are also 3 upsampling layers for 2D inputs.
+
+Hyperparameters
+
+The hyperparameters that were modified and tested in this project is the size of input images from the dataset, the batch size and the epochs. This model was
+Input data: (100, 256, 256, 1)
+  After split: (95, 256, 256, 1)
+trained on Google’s Colab using GPU (it is tested to be the fasted runtime method for training), which provides 12 GB GPU memory but limited the session time-out as 12 hours, which means the whole training process must be executed within 12 hours, otherwise the session will be reset and all progress will be lost.
+
+List of Hyperparameters
+size of input batch size epochs
+
+Range of Value of Hyperparameters Tried
+size of input: 10, 50, 100, 200
+batch size: 10, 50, 100
+epochs: 10, 100, 500, 1000, 1500, 5000
+
+Optimal Hyperparameters Found
+size of input: 100 batch size: 100 epochs: 5000
+When size of input is more than 100, the time spent for each epoch is too long, so the dataset is reduced to 100 images. The batch size can be as much as 100 to fit into the given memory, but more than that, the Colab crushes. For the epochs, the accuracy keeps improving as it gets larger, however due to the limitation of Colab, this is the largest epochs that balances the Colab’s limitation and the performance of the model.
+
+TestResult
+Several images that are either portraits or landscape or combined, are tested, and the result are subjectively classified as “Good”, “Fair” and “Bad”. Since whatever the input image is, the program will convert it into grey-scale, so all the input images in this part are colored, to better demonstrate the comparison between original image and colorized result.
+
+Instruction
+Please use any Linux distribution (tested on Ubuntu 18.04.1 and macos Mojave).
+
+Install Dependencies
+Python 3
+Tkinter
+Keras
+Tensorflow
+Numpy
+Scikit-image
+
+Demo Link on YouTube:
+https://youtu.be/9azzM7n1aCc
