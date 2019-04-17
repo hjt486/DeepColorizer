@@ -1,2 +1,4 @@
-https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/
+Train Data:
 https://unsplash.com/search/photos/category
+Test Data:
+https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/
